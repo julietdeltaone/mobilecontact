@@ -224,6 +224,34 @@ body{background:var(--bg);color:var(--text);height:100vh;height:100dvh}
    --text at full opacity, nudged up a size, so they read at a glance. */
 #screen-bio .fact-yr{color:var(--text);font-size:clamp(11px,1.85vmin,14px)}
 #screen-bio .fact-list{color:var(--text);font-size:clamp(11px,1.7vmin,14px)}
+
+/* ===== V6.1: TIDY BIO — HORIZONTAL QUADRANTS, FLUID VMIN BUDGET =====
+   V6.0's stacked quadrants overflowed their 1fr cells in the car's wide,
+   SHORT browser pane (~1180x980): content was sized too tall for the row,
+   so dividers struck through names and the footer button sat on text.
+   Reconfigured: each quadrant is now a two-column grid — the etched mark
+   in a fixed left column, icon / name / detail / sub-line stacked at its
+   right — and every size is a vmin clamp, so a short pane shrinks the
+   whole composition proportionally. Uniform cell padding puts every
+   content box >=14px inside its cell on all four sides; the MORE INFO
+   footer stays a reserved row in the frost flow. Orb toned down: at car
+   sizes it read as a huge red presence center-frame. */
+.orb{width:min(30vw,44vh);height:min(30vw,44vh);opacity:.40}
+:root[data-theme="light"] .orb{opacity:.22}
+#screen-bio .name{font-size:clamp(36px,7vmin,78px);margin-top:clamp(8px,1.6vmin,16px)}
+#screen-bio .loc{font-size:clamp(14px,2.2vmin,20px);margin-top:clamp(6px,1.1vmin,10px)}
+#screen-bio .rule{margin-top:clamp(12px,2.2vmin,22px)}
+#screen-bio .facts{min-height:0}
+#screen-bio .facts .fact{display:grid;grid-template-columns:clamp(74px,10.2vmin,106px) minmax(0,1fr);grid-template-rows:auto auto auto auto;column-gap:clamp(14px,2.4vmin,24px);align-content:center;padding:clamp(14px,2.2vmin,22px) clamp(18px,2.8vmin,28px)}
+#screen-bio #facts .fact-media{grid-column:1;grid-row:1/-1;align-self:center;justify-self:center;width:100%;height:clamp(60px,8.8vmin,96px);margin:0;display:flex;align-items:center;justify-content:center}
+#screen-bio .glass-cam{aspect-ratio:1/1}
+#screen-bio .fact-kicker{grid-column:2;grid-row:1;margin:0 0 clamp(4px,.8vmin,8px)}
+#screen-bio .fact-ico{width:clamp(17px,2.4vmin,22px);height:clamp(17px,2.4vmin,22px)}
+#screen-bio .fact-main{grid-column:2;grid-row:2;font-size:clamp(20px,3.3vmin,32px);line-height:1.12;min-width:0}
+#screen-bio .fact-deg{grid-column:2;grid-row:3;font-size:clamp(13px,2vmin,17px);margin-top:clamp(4px,.9vmin,8px)}
+#screen-bio .fact-yr{grid-column:2;grid-row:4;font-size:clamp(11px,1.6vmin,13.5px);margin-top:clamp(4px,.8vmin,7px);color:var(--text)}
+#screen-bio .fact-list{grid-column:2;grid-row:4;font-size:clamp(11px,1.6vmin,13.5px);margin-top:clamp(4px,.8vmin,7px);color:var(--text);line-height:1.35;letter-spacing:.06em}
+#screen-bio .footer{flex:0 0 auto;padding-top:clamp(12px,2.2vmin,20px)}
 </style>
 </head>
 <body>
