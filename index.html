@@ -99,8 +99,8 @@ body{background:var(--bg);color:var(--text);height:100vh;height:100dvh}
 
 /* ===== STAY IN TOUCH (in-card drop form, panel 07) ===== */
 .drop-flex{display:flex;gap:clamp(20px,3.4vmin,42px);align-items:flex-start}
-.drop-qr{flex:0 0 auto}
-.drop-qr .qr-tile{width:min(300px,32vw,30vh);width:min(300px,32vw,30dvh)}
+.drop-qr{flex:0 0 auto;width:min(300px,32vw,30vh);width:min(300px,32vw,30dvh)}
+.drop-qr .qr-tile{width:100%}
 .drop-form{flex:1;min-width:0;max-width:660px}
 .drop-form .flabel{display:block;font-size:12px;font-weight:700;letter-spacing:.26em;text-transform:uppercase;color:var(--muted);margin:16px 0 8px}
 .drop-form .flabel .opt{color:var(--faint);letter-spacing:.08em}
@@ -116,6 +116,13 @@ body{background:var(--bg);color:var(--text);height:100vh;height:100dvh}
 .drop-done{display:none}
 .drop-done .big{font-size:clamp(30px,5vmin,44px);font-weight:700;letter-spacing:-.015em}
 .drop-hp{position:absolute;left:-9999px;top:-9999px;height:0;width:0;opacity:0}
+/* Keyboard clearance: the contact content region scrolls, and while a drop
+   field is focused the header/name/tabs collapse so the form owns the area
+   above the on-screen keyboard; JS also fits the stage to visualViewport. */
+.content{overflow-y:auto;-webkit-overflow-scrolling:touch}
+.drop-form input{scroll-margin-top:12px}
+#screen-contact.form-focus .shead,#screen-contact.form-focus .name-sm,#screen-contact.form-focus .rule,#screen-contact.form-focus .tabs{display:none}
+#screen-contact.form-focus .content{margin-top:0}
 
 </style>
 </head>
@@ -234,7 +241,7 @@ body{background:var(--bg);color:var(--text);height:100vh;height:100dvh}
                   <input type="text" id="sd-first" name="first_name" autocomplete="given-name">
                 </div>
                 <div class="drop-cell">
-                  <label class="flabel" for="sd-last">Last name <span class="opt">(optional)</span></label>
+                  <label class="flabel" for="sd-last">Last name</label>
                   <input type="text" id="sd-last" name="last_name" autocomplete="family-name">
                 </div>
               </div>
@@ -377,6 +384,11 @@ body{background:var(--bg);color:var(--text);height:100vh;height:100dvh}
     err.style.display='none';
     done.style.display='none';
     form.style.display='';
+    focusActive=false;
+    if(typeof focusTimer!=='undefined'&&focusTimer){clearTimeout(focusTimer);focusTimer=null;}
+    var cs=document.getElementById('screen-contact');
+    if(cs){cs.classList.remove('form-focus');}
+    fitStage();
   }
   sink.addEventListener('load',function(){
     if(!armed){return;}
@@ -414,6 +426,51 @@ body{background:var(--bg);color:var(--text);height:100vh;height:100dvh}
       if(bio.classList.contains('on')){resetForm();}
     }).observe(bio,{attributes:true,attributeFilter:['class']});
   }
+  /* Keyboard clearance: while a drop field is focused, collapse the contact
+     header/tabs (CSS .form-focus), fit the stage to the visual viewport so
+     nothing hides under the on-screen keyboard, and keep the focused field
+     scrolled to the top of the visible content region. */
+  var stage=document.querySelector('.stage');
+  var vv=window.visualViewport||null;
+  var focusActive=false;
+  function fitStage(){
+    if(!stage){return;}
+    if(focusActive&&vv){stage.style.height=vv.height+'px';}
+    else{stage.style.height='';}
+  }
+  function scrollFieldIntoView(el){
+    if(!el||!form.contains(el)){return;}
+    try{el.scrollIntoView({block:'start'});}catch(e){}
+  }
+  var focusTimer=null;
+  form.addEventListener('focusin',function(e){
+    focusActive=true;
+    if(focusTimer){clearTimeout(focusTimer);}
+    var target=e.target;
+    /* Delay the collapse until after the current tap's click has landed —
+       collapsing mid-tap shifts the layout and the click misses its target. */
+    focusTimer=setTimeout(function(){
+      if(!focusActive){return;}
+      var cs=document.getElementById('screen-contact');
+      if(cs){cs.classList.add('form-focus');}
+      fitStage();
+      scrollFieldIntoView(target);
+    },350);
+  });
+  form.addEventListener('focusout',function(){
+    setTimeout(function(){
+      if(!form.contains(document.activeElement)){
+        focusActive=false;
+        if(focusTimer){clearTimeout(focusTimer);focusTimer=null;}
+        var cs=document.getElementById('screen-contact');
+        if(cs){cs.classList.remove('form-focus');}
+        fitStage();
+      }
+    },80);
+  });
+  if(vv){vv.addEventListener('resize',function(){
+    if(focusActive){fitStage();scrollFieldIntoView(document.activeElement);}
+  });}
 })();
 </script>
 </body>
