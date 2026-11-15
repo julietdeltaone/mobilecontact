@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Stay in touch — JD Meyers</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+:root{--bg:#000000;--text:#ffffff;--muted:rgba(255,255,255,.64);--faint:rgba(255,255,255,.40);--line:rgba(255,255,255,.26);--field:rgba(255,255,255,.06);--accent:#E30613}
+@media (prefers-color-scheme: light){:root{--bg:#ffffff;--text:#000000;--muted:rgba(0,0,0,.62);--faint:rgba(0,0,0,.42);--line:rgba(0,0,0,.24);--field:rgba(0,0,0,.04)}}
+body{font-family:"Helvetica Neue", Helvetica, Arial, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;background:var(--bg);color:var(--text);min-height:100vh;min-height:100dvh}
+.wrap{max-width:560px;margin:0 auto;padding:34px 22px 48px}
+.kicker{font-size:12px;font-weight:700;letter-spacing:.32em;text-transform:uppercase;color:var(--muted)}
+.kicker b{color:var(--accent)}
+h1{font-size:44px;font-weight:700;letter-spacing:-.02em;line-height:1.04;margin-top:12px}
+.sub{font-size:18px;color:var(--muted);margin-top:10px;line-height:1.45}
+.rule{height:1px;background:var(--line);margin:26px 0 6px}
+label.flabel{display:block;font-size:12px;font-weight:700;letter-spacing:.26em;text-transform:uppercase;color:var(--muted);margin:24px 0 9px}
+label.flabel .opt{color:var(--faint);letter-spacing:.08em}
+input[type=text],input[type=tel]{width:100%;font-family:inherit;font-size:18px;color:var(--text);background:var(--field);border:1px solid var(--line);border-radius:3px;padding:15px 16px;min-height:58px;outline:none}
+input:focus{border-color:var(--accent)}
+.chips{display:flex;flex-wrap:wrap;gap:9px;margin-top:2px}
+.chips input{position:absolute;opacity:0;pointer-events:none}
+.chips label{font-size:16px;font-weight:600;padding:13px 18px;border:1px solid var(--line);border-radius:3px;cursor:pointer;min-height:50px;display:inline-flex;align-items:center}
+.chips input:checked + label{background:var(--accent);border-color:var(--accent);color:#ffffff}
+.chips input:focus-visible + label{outline:2px solid var(--accent);outline-offset:2px}
+.note-line{font-size:14px;color:var(--faint);margin-top:9px;min-height:18px}
+.note-line.warn{color:var(--accent);font-weight:600}
+button.submit{width:100%;margin-top:32px;font-family:inherit;font-size:19px;font-weight:700;letter-spacing:.03em;padding:17px;background:var(--accent);border:1px solid var(--accent);color:#ffffff;border-radius:3px;min-height:62px;cursor:pointer}
+button.submit:active{transform:scale(.99)}
+button.submit[disabled]{opacity:.55}
+.err{display:none;margin-top:16px;font-size:15px;color:var(--accent);font-weight:600;line-height:1.45}
+.foot{margin-top:34px;padding-top:18px;border-top:1px solid var(--line);font-size:13px;color:var(--faint);letter-spacing:.14em;text-transform:uppercase}
+#done{display:none}
+#done .big{font-size:38px;font-weight:700;letter-spacing:-.015em;line-height:1.1;margin-top:12px}
+#done .sub{margin-bottom:8px}
+.alt{display:block;margin-top:20px;font-size:18px;font-weight:700;color:var(--text);text-decoration:none;border:1px solid var(--line);border-radius:3px;padding:16px 18px;min-height:58px}
+.alt span{color:var(--accent);margin-right:.6em}
+.hp{position:absolute;left:-9999px;top:-9999px;height:0;width:0;opacity:0}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <form id="dropform" novalidate>
+    <div class="kicker"><b>+</b>&nbsp;&nbsp;JD Meyers · Potsdam, New York</div>
+    <h1>Stay in touch</h1>
+    <p class="sub">Drop your contact and JD will have it for good. Takes about 20 seconds, no account, nothing else sent to you.</p>
+    <div class="rule"></div>
+
+    <input type="text" id="honey" name="_honey" class="hp" tabindex="-1" autocomplete="off">
+
+    <label class="flabel" for="first_name">First name</label>
+    <input type="text" id="first_name" name="first_name" autocomplete="given-name" required>
+
+    <label class="flabel" for="last_name">Last name <span class="opt">(optional)</span></label>
+    <input type="text" id="last_name" name="last_name" autocomplete="family-name">
+
+    <label class="flabel" for="phone">Phone <span class="opt">(optional)</span></label>
+    <input type="tel" id="phone" name="phone" autocomplete="tel" inputmode="tel">
+
+    <label class="flabel" for="instagram">Instagram <span class="opt">(optional)</span></label>
+    <input type="text" id="instagram" name="instagram" placeholder="@yourhandle" autocomplete="off" autocapitalize="none">
+    <div class="note-line" id="contact-note">Phone or Instagram, whichever you actually check. One of the two is enough.</div>
+
+    <label class="flabel">Where did we meet?</label>
+    <div class="chips" id="chips">
+      <input type="radio" name="met_where" id="mw-ride" value="Ride"><label for="mw-ride">Ride</label>
+      <input type="radio" name="met_where" id="mw-wedding" value="Wedding or event"><label for="mw-wedding">Wedding or event</label>
+      <input type="radio" name="met_where" id="mw-clarkson" value="Clarkson"><label for="mw-clarkson">Clarkson</label>
+      <input type="radio" name="met_where" id="mw-church" value="Church"><label for="mw-church">Church</label>
+      <input type="radio" name="met_where" id="mw-else" value="Somewhere else"><label for="mw-else">Somewhere else</label>
+    </div>
+
+    <label class="flabel" for="note">Note <span class="opt">(optional)</span></label>
+    <input type="text" id="note" name="note" placeholder="Anything JD should remember?">
+
+    <button type="submit" class="submit" id="submitbtn">Send it to JD</button>
+    <div class="err" id="err"></div>
+    <div class="foot">JD Meyers · JD Meyers Productions</div>
+  </form>
+
+  <div id="done">
+    <div class="kicker"><b>+</b>&nbsp;&nbsp;JD Meyers · Potsdam, New York</div>
+    <div class="big">Got it. Thanks!</div>
+    <p class="sub">Your contact is on its way to JD.</p>
+    <a class="alt" id="smslink" href="sms:+13152444155"><span>+</span>Or text JD instead</a>
+    <a class="alt" href="https://julietdeltaone.github.io/mobilecontact/"><span>+</span>Back to JD's card</a>
+    <div class="foot">JD Meyers · JD Meyers Productions</div>
+  </div>
+
+</div>
+<script>
+(function(){
+  var form=document.getElementById('dropform');
+  var err=document.getElementById('err');
+  var note=document.getElementById('contact-note');
+  var btn=document.getElementById('submitbtn');
+  function val(id){return document.getElementById(id).value.trim();}
+  form.addEventListener('submit',function(e){
+    e.preventDefault();
+    err.style.display='none';
+    var first=val('first_name');
+    if(!first){
+      err.textContent='Your first name is the one thing JD needs.';
+      err.style.display='block';
+      document.getElementById('first_name').focus();
+      return;
+    }
+    var phone=val('phone'), ig=val('instagram');
+    if(!phone && !ig){
+      note.textContent='Add a phone number or your Instagram so JD can actually reach you.';
+      note.classList.add('warn');
+      document.getElementById('phone').focus();
+      return;
+    }
+    note.classList.remove('warn');
+    var mw=form.querySelector('input[name="met_where"]:checked');
+    var data={
+      first_name:first,
+      last_name:val('last_name'),
+      phone:phone,
+      instagram:ig,
+      met_where:mw?mw.value:'',
+      note:val('note'),
+      _subject:'Contact drop — '+first,
+      _template:'table',
+      _captcha:'false',
+      _honey:document.getElementById('honey').value
+    };
+    btn.disabled=true;
+    btn.textContent='Sending…';
+    fetch('https://formsubmit.co/ajax/johndavidmeyers@gmail.com',{
+      method:'POST',
+      headers:{'Content-Type':'application/json','Accept':'application/json'},
+      body:JSON.stringify(data)
+    }).then(function(r){return r.json();}).then(function(j){
+      if(j && (j.success===true || j.success==='true')){
+        var body=encodeURIComponent("Hey JD, it's "+first+" — ");
+        document.getElementById('smslink').setAttribute('href','sms:+13152444155?&body='+body);
+        form.style.display='none';
+        document.getElementById('done').style.display='block';
+        window.scrollTo(0,0);
+      }else{
+        throw new Error((j && j.message) || 'send failed');
+      }
+    }).catch(function(){
+      btn.disabled=false;
+      btn.textContent='Send it to JD';
+      err.textContent='That did not go through. Check your connection and try once more, or use the text option after sending.';
+      err.style.display='block';
+    });
+  });
+})();
+</script>
+</body>
+</html>
