@@ -28,11 +28,15 @@ button.submit[disabled]{opacity:.55}
 <body>
 <div class="wrap">
 
-  <form id="dropform" novalidate>
+  <form id="dropform" method="POST" action="https://formsubmit.co/johndavidmeyers@gmail.com" target="drop_sink" novalidate>
     <h1>Stay in Touch</h1>
     <div class="rule"></div>
 
     <input type="text" id="honey" name="_honey" class="hp" tabindex="-1" autocomplete="off">
+    <input type="hidden" name="_template" value="table">
+    <input type="hidden" name="_captcha" value="false">
+    <input type="hidden" name="_next" value="https://julietdeltaone.github.io/mobilecontact/share.html">
+    <input type="hidden" name="_subject" id="subjectfield" value="Contact drop">
 
     <label class="flabel" for="first_name">First name</label>
     <input type="text" id="first_name" name="first_name" autocomplete="given-name" required>
@@ -49,6 +53,7 @@ button.submit[disabled]{opacity:.55}
     <button type="submit" class="submit" id="submitbtn">Send</button>
     <div class="err" id="err"></div>
   </form>
+  <iframe name="drop_sink" id="drop_sink" style="display:none" aria-hidden="true"></iframe>
 
   <div id="done">
     <div class="big">Got it.</div>
@@ -60,12 +65,30 @@ button.submit[disabled]{opacity:.55}
   var form=document.getElementById('dropform');
   var err=document.getElementById('err');
   var btn=document.getElementById('submitbtn');
+  var sink=document.getElementById('drop_sink');
+  var armed=false, timer=null;
   function val(id){return document.getElementById(id).value.trim();}
+  function fail(msg){
+    armed=false;
+    if(timer){clearTimeout(timer);timer=null;}
+    btn.disabled=false;
+    btn.textContent='Send';
+    err.textContent=msg;
+    err.style.display='block';
+  }
+  sink.addEventListener('load',function(){
+    if(!armed){return;}
+    armed=false;
+    if(timer){clearTimeout(timer);timer=null;}
+    form.style.display='none';
+    document.getElementById('done').style.display='block';
+    window.scrollTo(0,0);
+  });
   form.addEventListener('submit',function(e){
-    e.preventDefault();
     err.style.display='none';
     var first=val('first_name');
     if(!first){
+      e.preventDefault();
       err.textContent='First name is required.';
       err.style.display='block';
       document.getElementById('first_name').focus();
@@ -73,41 +96,17 @@ button.submit[disabled]{opacity:.55}
     }
     var phone=val('phone');
     if(!phone){
+      e.preventDefault();
       err.textContent='Phone is required.';
       err.style.display='block';
       document.getElementById('phone').focus();
       return;
     }
-    var data={
-      first_name:first,
-      last_name:val('last_name'),
-      phone:phone,
-      note:val('note'),
-      _subject:'Contact drop — '+first,
-      _template:'table',
-      _captcha:'false',
-      _honey:document.getElementById('honey').value
-    };
+    document.getElementById('subjectfield').value='Contact drop — '+first;
     btn.disabled=true;
     btn.textContent='Sending…';
-    fetch('https://formsubmit.co/ajax/johndavidmeyers@gmail.com',{
-      method:'POST',
-      headers:{'Content-Type':'application/json','Accept':'application/json'},
-      body:JSON.stringify(data)
-    }).then(function(r){return r.json();}).then(function(j){
-      if(j && (j.success===true || j.success==='true')){
-        form.style.display='none';
-        document.getElementById('done').style.display='block';
-        window.scrollTo(0,0);
-      }else{
-        throw new Error((j && j.message) || 'send failed');
-      }
-    }).catch(function(){
-      btn.disabled=false;
-      btn.textContent='Send';
-      err.textContent='That did not go through. Check your connection and try once more.';
-      err.style.display='block';
-    });
+    armed=true;
+    timer=setTimeout(function(){fail('That did not go through. Check your connection and try once more.');},12000);
   });
 })();
 </script>
