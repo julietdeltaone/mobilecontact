@@ -163,6 +163,19 @@ body{background:var(--bg);color:var(--text);height:100vh;height:100dvh}
 .glass-cam svg{position:absolute;inset:0;width:100%;height:100%;display:block;overflow:visible}
 :root[data-theme="light"] .glass-cam{color:#191919}
 
+/* ===== V5.5: APERTURE MARK + SPACING AUDIT + TOGGLE ALIGNMENT =====
+   Spacing audit (measured, Playwright, all four facts): the marks' halos sat
+   ~14px under the sub-line at car size while the old camera floated at ~37px.
+   The media margin now puts every mark's halo edge ~28px below the sub-line
+   at car size, the same for all four facts; the Clarkson seal renders ~3px
+   lower than the others (its 200x193 art letterboxes in the square zone), so
+   its margin is trimmed by .4vmin to land on the same line. */
+#screen-bio .fact-media{margin-top:clamp(30px,4.8vmin,44px)}
+#facts .fact:nth-child(2) .fact-media{margin-top:calc(clamp(30px,4.8vmin,44px) - .4vmin)}
+/* Theme toggle: locked to the frost panel's grid -- right edge on the panel's
+   inner right edge (stage + frost right padding), vertically centered on the
+   header kicker row (panel inner top + half the kicker line, toggle 38px). */
+.theme-toggle{height:38px;display:flex;align-items:center;justify-content:center;padding:0 18px;top:calc(clamp(22px,4.2vmin,52px) + clamp(20px,3.8vmin,46px) + clamp(6.3px,.92vmin,8.1px) - 18px);right:calc(clamp(22px,5.5vmin,72px) + clamp(20px,4.6vmin,58px))}
 </style>
 </head>
 <body>
@@ -221,9 +234,9 @@ body{background:var(--bg);color:var(--text);height:100vh;height:100dvh}
           <div class="fact-sub"><span class="fact-deg">Photography &amp; Videography</span><span class="fact-yr">Weddings · Senior Photos · Drone</span></div>
           <div class="fact-media">
         <div class="glass-cam">
-          <svg class="gs-blur" aria-hidden="true" viewBox="0 0 64 48" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="15" width="54" height="29" rx="5"/><path d="M24 15 L28.5 8.5 h7 L40 15"/><rect x="10.5" y="11.5" width="6" height="3.5" rx="1"/><rect x="47.5" y="11" width="7" height="4" rx="1.5"/><rect x="11" y="20.5" width="7" height="5" rx="1.2"/><circle cx="32" cy="29.5" r="10"/><circle cx="32" cy="29.5" r="6.3"/><circle cx="32" cy="29.5" r="2.7"/><circle cx="28.7" cy="26.2" r="1.15" fill="currentColor" stroke="none"/></svg>
-          <svg class="gs-base" role="img" aria-label="Photography camera icon" viewBox="0 0 64 48" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="15" width="54" height="29" rx="5"/><path d="M24 15 L28.5 8.5 h7 L40 15"/><rect x="10.5" y="11.5" width="6" height="3.5" rx="1"/><rect x="47.5" y="11" width="7" height="4" rx="1.5"/><rect x="11" y="20.5" width="7" height="5" rx="1.2"/><circle cx="32" cy="29.5" r="10"/><circle cx="32" cy="29.5" r="6.3"/><circle cx="32" cy="29.5" r="2.7"/><circle cx="28.7" cy="26.2" r="1.15" fill="currentColor" stroke="none"/></svg>
-          <svg class="gs-sheen" aria-hidden="true" viewBox="0 0 64 48" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="15" width="54" height="29" rx="5"/><path d="M24 15 L28.5 8.5 h7 L40 15"/><rect x="10.5" y="11.5" width="6" height="3.5" rx="1"/><rect x="47.5" y="11" width="7" height="4" rx="1.5"/><rect x="11" y="20.5" width="7" height="5" rx="1.2"/><circle cx="32" cy="29.5" r="10"/><circle cx="32" cy="29.5" r="6.3"/><circle cx="32" cy="29.5" r="2.7"/><circle cx="28.7" cy="26.2" r="1.15" fill="currentColor" stroke="none"/></svg>
+          <svg class="gs-blur" aria-hidden="true" viewBox="1.65 1.65 20.7 20.7" fill="none" stroke="currentColor" stroke-width="0.65" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="14.31" y1="8" x2="20.05" y2="17.94"/><line x1="9.69" y1="8" x2="21.17" y2="8"/><line x1="7.38" y1="12" x2="13.12" y2="2.06"/><line x1="9.69" y1="16" x2="3.95" y2="6.06"/><line x1="14.31" y1="16" x2="2.83" y2="16"/><line x1="16.62" y1="12" x2="10.88" y2="21.94"/></svg>
+          <svg class="gs-base" role="img" aria-label="Photography aperture icon" viewBox="1.65 1.65 20.7 20.7" fill="none" stroke="currentColor" stroke-width="0.65" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="14.31" y1="8" x2="20.05" y2="17.94"/><line x1="9.69" y1="8" x2="21.17" y2="8"/><line x1="7.38" y1="12" x2="13.12" y2="2.06"/><line x1="9.69" y1="16" x2="3.95" y2="6.06"/><line x1="14.31" y1="16" x2="2.83" y2="16"/><line x1="16.62" y1="12" x2="10.88" y2="21.94"/></svg>
+          <svg class="gs-sheen" aria-hidden="true" viewBox="1.65 1.65 20.7 20.7" fill="none" stroke="currentColor" stroke-width="0.65" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="14.31" y1="8" x2="20.05" y2="17.94"/><line x1="9.69" y1="8" x2="21.17" y2="8"/><line x1="7.38" y1="12" x2="13.12" y2="2.06"/><line x1="9.69" y1="16" x2="3.95" y2="6.06"/><line x1="14.31" y1="16" x2="2.83" y2="16"/><line x1="16.62" y1="12" x2="10.88" y2="21.94"/></svg>
         </div>
       </div>
         </div>
