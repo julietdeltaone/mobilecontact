@@ -124,6 +124,45 @@ body{background:var(--bg);color:var(--text);height:100vh;height:100dvh}
 #screen-contact.form-focus .shead,#screen-contact.form-focus .name-sm,#screen-contact.form-focus .rule,#screen-contact.form-focus .tabs{display:none}
 #screen-contact.form-focus .content{margin-top:0}
 
+/* ===== V5.4 FACTS: ICONS + HIERARCHY + PER-FACT GLASS MARKS (shipped) ===== */
+/* Stronger steps: kicker ~13px tracked caps -> degree/detail ~30px bold ->
+   headline ~72px. Each level clearly larger than the one below it. */
+#screen-bio .facts{min-height:clamp(340px,52vmin,452px)}
+#screen-bio .fact-kicker{display:flex;align-items:center;gap:.75em;font-size:clamp(12px,2vmin,15px);color:var(--muted);margin-bottom:clamp(12px,2.2vmin,18px)}
+#screen-bio .fact-kicker::before{display:none}
+.fact-ico{width:clamp(19px,2.9vmin,26px);height:clamp(19px,2.9vmin,26px);flex:0 0 auto;color:var(--accent)}
+#screen-bio .fact-main{font-size:clamp(38px,7.2vmin,76px);line-height:1.08}
+#screen-bio .fact-sub{margin-top:clamp(12px,2.2vmin,20px)}
+.fact-deg{display:block;font-size:clamp(21px,3.6vmin,32px);font-weight:700;color:var(--text);letter-spacing:.05em;line-height:1.2}
+.fact-yr{display:flex;align-items:center;gap:.85em;margin-top:clamp(7px,1.3vmin,11px);font-size:clamp(12px,2vmin,16px);font-weight:700;letter-spacing:.3em;color:var(--faint)}
+.fact-yr::before{content:"";width:1.7em;height:2px;background:var(--accent);flex:0 0 auto}
+/* ===== V5.4: TRANSPARENT GLASS MARKS (shipped) =====
+   No tiles, no white fields, no color marks. School seals are rendered AS
+   GLASS from the real marks: an etched monochrome version of each seal
+   (luminance -> alpha) in three stacked layers -- a blurred underlay (soft
+   refraction halo), a crisp base layer with embossed drop-shadows, and a
+   copy of the mark masked by a diagonal light gradient at screen blend
+   (light raking across the glass). Dark theme uses the white etching;
+   light theme swaps to the dark etching with inverted shadows. The U.S.
+   Army star (official mark from the Army logo) is etched to monochrome
+   the same way. The Business visual is an inline-SVG camera mark run
+   through the identical glass stack, so all four facts share one system. */
+.fact-media{margin-top:clamp(18px,3vmin,30px);height:clamp(118px,20vmin,182px);display:flex;align-items:center;justify-content:center}
+.only-light{display:none}
+:root[data-theme="light"] .only-light{display:block}
+:root[data-theme="light"] .only-dark{display:none}
+.glass-seal{position:relative;height:100%;aspect-ratio:1/1;flex:0 0 auto}
+.glass-seal img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;display:block}
+.gs-blur{filter:blur(5px);opacity:.38;transform:scale(1.04)}
+.gs-base{opacity:.94;filter:drop-shadow(0 2px 3px rgba(0,0,0,.45)) drop-shadow(0 -1px 1px rgba(255,255,255,.30))}
+.gs-sheen{opacity:.5;mix-blend-mode:screen;-webkit-mask-image:linear-gradient(155deg,#000 0%,rgba(0,0,0,.22) 38%,rgba(0,0,0,.04) 55%,rgba(0,0,0,.42) 82%,#000 100%);mask-image:linear-gradient(155deg,#000 0%,rgba(0,0,0,.22) 38%,rgba(0,0,0,.04) 55%,rgba(0,0,0,.42) 82%,#000 100%)}
+:root[data-theme="light"] .gs-blur{opacity:.22}
+:root[data-theme="light"] .gs-base{opacity:.92;filter:drop-shadow(0 1px 2px rgba(0,0,0,.30)) drop-shadow(0 -1px 1px rgba(255,255,255,.85))}
+:root[data-theme="light"] .gs-sheen{mix-blend-mode:normal;opacity:.35}
+.glass-cam{position:relative;height:100%;aspect-ratio:4/3;flex:0 0 auto;color:#f5f5f5}
+.glass-cam svg{position:absolute;inset:0;width:100%;height:100%;display:block;overflow:visible}
+:root[data-theme="light"] .glass-cam{color:#191919}
+
 </style>
 </head>
 <body>
@@ -143,29 +182,67 @@ body{background:var(--bg);color:var(--text);height:100vh;height:100dvh}
     <div class="fact-zone">
       <div class="facts" id="facts">
         <div class="fact on">
-          <div class="fact-kicker">Education</div>
+          <div class="fact-kicker"><svg class="fact-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 9.2 12 4l9.5 5.2L12 14.4 2.5 9.2Z"/><path d="M6.2 11.3v4.2c0 1.6 2.6 3 5.8 3s5.8-1.4 5.8-3v-4.2"/><path d="M21.5 9.2v5"/></svg>Education</div>
           <div class="fact-main">SUNY Canton</div>
-          <div class="fact-sub">Criminal Investigation · Class of 2023</div>
+          <div class="fact-sub"><span class="fact-deg">Criminal Investigation</span><span class="fact-yr">Class of 2023</span></div>
+          <div class="fact-media">
+        <div class="glass-seal only-dark">
+          <img class="gs-blur" src="assets/seal-canton-white.png" alt="" aria-hidden="true">
+          <img class="gs-base" src="assets/seal-canton-white.png" alt="SUNY Canton seal">
+          <img class="gs-sheen" src="assets/seal-canton-white.png" alt="" aria-hidden="true">
+        </div>
+        <div class="glass-seal only-light">
+          <img class="gs-blur" src="assets/seal-canton-dark.png" alt="" aria-hidden="true">
+          <img class="gs-base" src="assets/seal-canton-dark.png" alt="SUNY Canton seal">
+          <img class="gs-sheen" src="assets/seal-canton-dark.png" alt="" aria-hidden="true">
+        </div>
+      </div>
         </div>
         <div class="fact">
-          <div class="fact-kicker">Education</div>
+          <div class="fact-kicker"><svg class="fact-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 9.2 12 4l9.5 5.2L12 14.4 2.5 9.2Z"/><path d="M6.2 11.3v4.2c0 1.6 2.6 3 5.8 3s5.8-1.4 5.8-3v-4.2"/><path d="M21.5 9.2v5"/></svg>Education</div>
           <div class="fact-main">Clarkson University</div>
-          <div class="fact-sub">MBA · Class of 2027</div>
+          <div class="fact-sub"><span class="fact-deg">MBA</span><span class="fact-yr">Class of 2027</span></div>
+          <div class="fact-media">
+        <div class="glass-seal only-dark">
+          <img class="gs-blur" src="assets/seal-clarkson-white.png" alt="" aria-hidden="true">
+          <img class="gs-base" src="assets/seal-clarkson-white.png" alt="Clarkson University seal">
+          <img class="gs-sheen" src="assets/seal-clarkson-white.png" alt="" aria-hidden="true">
+        </div>
+        <div class="glass-seal only-light">
+          <img class="gs-blur" src="assets/seal-clarkson-dark.png" alt="" aria-hidden="true">
+          <img class="gs-base" src="assets/seal-clarkson-dark.png" alt="Clarkson University seal">
+          <img class="gs-sheen" src="assets/seal-clarkson-dark.png" alt="" aria-hidden="true">
+        </div>
+      </div>
         </div>
         <div class="fact">
-          <div class="fact-kicker">Business</div>
+          <div class="fact-kicker"><svg class="fact-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="8" width="18" height="12" rx="2"/><path d="M9 8V6.5A2.5 2.5 0 0 1 11.5 4h1A2.5 2.5 0 0 1 15 6.5V8"/><path d="M3 13.5h18"/><path d="M12 12v2.6"/></svg>Business</div>
           <div class="fact-main">JD Meyers Productions</div>
-          <div class="fact-sub">Photography &amp; Videography</div>
+          <div class="fact-sub"><span class="fact-deg">Photography &amp; Videography</span><span class="fact-yr">Weddings · Senior Photos · Drone</span></div>
+          <div class="fact-media">
+        <div class="glass-cam">
+          <svg class="gs-blur" aria-hidden="true" viewBox="0 0 64 48" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="15" width="54" height="29" rx="5"/><path d="M24 15 L28.5 8.5 h7 L40 15"/><rect x="10.5" y="11.5" width="6" height="3.5" rx="1"/><rect x="47.5" y="11" width="7" height="4" rx="1.5"/><rect x="11" y="20.5" width="7" height="5" rx="1.2"/><circle cx="32" cy="29.5" r="10"/><circle cx="32" cy="29.5" r="6.3"/><circle cx="32" cy="29.5" r="2.7"/><circle cx="28.7" cy="26.2" r="1.15" fill="currentColor" stroke="none"/></svg>
+          <svg class="gs-base" role="img" aria-label="Photography camera icon" viewBox="0 0 64 48" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="15" width="54" height="29" rx="5"/><path d="M24 15 L28.5 8.5 h7 L40 15"/><rect x="10.5" y="11.5" width="6" height="3.5" rx="1"/><rect x="47.5" y="11" width="7" height="4" rx="1.5"/><rect x="11" y="20.5" width="7" height="5" rx="1.2"/><circle cx="32" cy="29.5" r="10"/><circle cx="32" cy="29.5" r="6.3"/><circle cx="32" cy="29.5" r="2.7"/><circle cx="28.7" cy="26.2" r="1.15" fill="currentColor" stroke="none"/></svg>
+          <svg class="gs-sheen" aria-hidden="true" viewBox="0 0 64 48" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="15" width="54" height="29" rx="5"/><path d="M24 15 L28.5 8.5 h7 L40 15"/><rect x="10.5" y="11.5" width="6" height="3.5" rx="1"/><rect x="47.5" y="11" width="7" height="4" rx="1.5"/><rect x="11" y="20.5" width="7" height="5" rx="1.2"/><circle cx="32" cy="29.5" r="10"/><circle cx="32" cy="29.5" r="6.3"/><circle cx="32" cy="29.5" r="2.7"/><circle cx="28.7" cy="26.2" r="1.15" fill="currentColor" stroke="none"/></svg>
+        </div>
+      </div>
         </div>
         <div class="fact">
-          <div class="fact-kicker">On the Camera</div>
-          <div class="fact-main">Weddings · Senior Photos · Drone</div>
-          <div class="fact-sub">JD Meyers Productions</div>
-        </div>
-        <div class="fact">
-          <div class="fact-kicker">Service</div>
+          <div class="fact-kicker"><svg class="fact-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l7 2.6v5.2c0 4.8-3 8.1-7 10.2-4-2.1-7-5.4-7-10.2V5.6L12 3Z"/><path d="M12 8.1l1.15 2.35 2.6.35-1.9 1.8.45 2.6L12 14.05l-2.3 1.15.45-2.6-1.9-1.8 2.6-.35L12 8.1Z"/></svg>Service</div>
           <div class="fact-main">New York Army National Guard</div>
-          <div class="fact-sub">HR Specialist</div>
+          <div class="fact-sub"><span class="fact-deg">HR Specialist</span></div>
+          <div class="fact-media">
+        <div class="glass-seal only-dark">
+          <img class="gs-blur" src="assets/army-star-white.png" alt="" aria-hidden="true">
+          <img class="gs-base" src="assets/army-star-white.png" alt="U.S. Army star logo">
+          <img class="gs-sheen" src="assets/army-star-white.png" alt="" aria-hidden="true">
+        </div>
+        <div class="glass-seal only-light">
+          <img class="gs-blur" src="assets/army-star-dark.png" alt="" aria-hidden="true">
+          <img class="gs-base" src="assets/army-star-dark.png" alt="U.S. Army star logo">
+          <img class="gs-sheen" src="assets/army-star-dark.png" alt="" aria-hidden="true">
+        </div>
+      </div>
         </div>
       </div>
     </div>
