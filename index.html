@@ -10,30 +10,34 @@
 html,body{height:100%}
 body{font-family:-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;overflow:hidden}
 button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
-:root[data-theme="dark"]{--text:#f6f7fb;--muted:rgba(246,247,251,.66);--faint:rgba(246,247,251,.45);--glass:rgba(255,255,255,.07);--glass-line:rgba(255,255,255,.20);--btn:rgba(255,255,255,.06);--btn-line:rgba(255,255,255,.16);--btn-active:#f6f7fb;--btn-active-text:#101322;--toggle:rgba(255,255,255,.1);--toggle-line:rgba(255,255,255,.25);--bg-grad:radial-gradient(1200px 800px at 18% 8%,#2b3350 0%,transparent 55%),radial-gradient(1100px 760px at 85% 90%,#3a2b52 0%,transparent 55%),linear-gradient(150deg,#0a0d18 0%,#131828 52%,#0a0c14 100%)}
-:root[data-theme="light"]{--text:#141824;--muted:rgba(20,24,36,.64);--faint:rgba(20,24,36,.42);--glass:rgba(255,255,255,.55);--glass-line:rgba(20,24,36,.13);--btn:rgba(255,255,255,.45);--btn-line:rgba(20,24,36,.13);--btn-active:#141824;--btn-active-text:#ffffff;--toggle:rgba(255,255,255,.6);--toggle-line:rgba(20,24,36,.16);--bg-grad:radial-gradient(1200px 800px at 18% 8%,#cdd8f2 0%,transparent 55%),radial-gradient(1100px 760px at 85% 90%,#e3d5f2 0%,transparent 55%),linear-gradient(150deg,#eef1f7 0%,#e2e7f2 52%,#edf0f7 100%)}
-body{background:var(--bg-grad);background-color:#0a0d18;color:var(--text);display:flex;height:100dvh;padding:2.5vmin;animation:drift 26s ease-in-out infinite alternate}
+:root[data-theme="dark"]{--text:#f6f7fb;--muted:rgba(246,247,251,.66);--faint:rgba(246,247,251,.45);--glass-line:rgba(255,255,255,.20);--btn:rgba(255,255,255,.06);--btn-line:rgba(255,255,255,.16);--btn-active:#f6f7fb;--btn-active-text:#101322;--toggle:rgba(255,255,255,.1);--toggle-line:rgba(255,255,255,.25);--bg-grad:radial-gradient(1200px 800px at 18% 8%,#2b3350 0%,transparent 55%),radial-gradient(1100px 760px at 85% 90%,#3a2b52 0%,transparent 55%),linear-gradient(150deg,#0a0d18 0%,#131828 52%,#0a0c14 100%)}
+:root[data-theme="light"]{--text:#141824;--muted:rgba(20,24,36,.64);--faint:rgba(20,24,36,.42);--glass-line:rgba(20,24,36,.13);--btn:rgba(255,255,255,.45);--btn-line:rgba(20,24,36,.13);--btn-active:#141824;--btn-active-text:#ffffff;--toggle:rgba(255,255,255,.6);--toggle-line:rgba(20,24,36,.16);--bg-grad:radial-gradient(1200px 800px at 18% 8%,#cdd8f2 0%,transparent 55%),radial-gradient(1100px 760px at 85% 90%,#e3d5f2 0%,transparent 55%),linear-gradient(150deg,#eef1f7 0%,#e2e7f2 52%,#edf0f7 100%)}
+body{background:var(--bg-grad);background-color:#0a0d18;color:var(--text);height:100dvh;animation:drift 26s ease-in-out infinite alternate}
 :root[data-theme="light"] body{background-color:#eef1f7}
 @keyframes drift{from{background-position:0% 0%,100% 100%,0 0}to{background-position:6% 4%,94% 96%,0 0}}
 .theme-toggle{position:fixed;top:2.2vmin;right:2.6vmin;z-index:60;font-size:clamp(13px,2vmin,18px);font-weight:600;letter-spacing:.02em;padding:clamp(8px,1.6vmin,14px) clamp(14px,2.6vmin,26px);border-radius:999px;background:var(--toggle);color:var(--text);border:1px solid var(--toggle-line);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
-.card{margin:auto;width:min(94vw,600px);max-height:95dvh;background:var(--glass);border:1px solid var(--glass-line);border-radius:clamp(20px,3.4vmin,30px);padding:clamp(24px,4.6vmin,46px) clamp(22px,5vmin,48px);backdrop-filter:blur(22px) saturate(1.3);-webkit-backdrop-filter:blur(22px) saturate(1.3);box-shadow:0 30px 80px rgba(0,0,0,.35);display:flex;flex-direction:column;overflow:hidden}
-.screen{display:none;flex-direction:column;width:100%;min-height:0;text-align:left}
+.stage{height:100dvh;width:100%;display:flex;flex-direction:column;padding:clamp(22px,5vmin,54px) clamp(22px,6vmin,64px)}
+.screen{display:none;flex-direction:column;width:100%;flex:1;min-height:0;text-align:left}
 .screen.on{display:flex;animation:fadein .35s ease}
-@keyframes fadein{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+@keyframes fadein{from{opacity:0}to{opacity:1}}
 .kicker{font-size:clamp(10px,1.7vmin,12px);font-weight:700;letter-spacing:.32em;color:var(--faint);text-transform:uppercase}
-.name{font-size:clamp(30px,7vmin,48px);font-weight:700;letter-spacing:-.015em;line-height:1.08;margin-top:clamp(8px,1.6vmin,14px)}
+.name{font-size:clamp(32px,7.4vmin,54px);font-weight:700;letter-spacing:-.015em;line-height:1.08;margin-top:clamp(8px,1.6vmin,14px)}
 .name .jd{font-weight:400;color:var(--muted)}
 .loc{font-size:clamp(14px,2.4vmin,18px);color:var(--muted);margin-top:clamp(5px,1vmin,9px);letter-spacing:.01em}
-.rule{height:1px;background:var(--glass-line);margin:clamp(16px,3.2vmin,26px) 0}
-ul.facts{list-style:none}
-ul.facts li{position:relative;padding-left:clamp(16px,2.8vmin,22px);margin-bottom:clamp(11px,2.2vmin,17px)}
-ul.facts li:last-child{margin-bottom:0}
-ul.facts li::before{content:"";position:absolute;left:1px;top:.52em;width:5px;height:5px;border-radius:50%;background:var(--faint)}
-.fact-main{font-size:clamp(15px,2.7vmin,20px);font-weight:600;line-height:1.35}
-.fact-main .thin{font-weight:400;color:var(--muted)}
-.fact-sub{font-size:clamp(13px,2.2vmin,16px);color:var(--muted);margin-top:2px;letter-spacing:.01em}
-.cta{align-self:flex-start;margin-top:clamp(20px,4vmin,32px);background:var(--btn-active);color:var(--btn-active-text);font-size:clamp(16px,2.8vmin,21px);font-weight:700;padding:clamp(12px,2.2vmin,17px) clamp(26px,5vmin,42px);border-radius:999px;box-shadow:0 12px 30px rgba(0,0,0,.28)}
+.rule{height:1px;background:var(--glass-line);margin-top:clamp(16px,3.2vmin,26px)}
+.fact-zone{flex:1;display:flex;flex-direction:column;justify-content:center;min-height:0}
+.facts{position:relative;min-height:clamp(120px,26vmin,190px)}
+.fact{position:absolute;left:0;right:0;top:50%;transform:translateY(-50%) translateX(10px);opacity:0;transition:opacity .9s ease,transform .9s ease;pointer-events:none}
+.fact.on{opacity:1;transform:translateY(-50%) translateX(0);pointer-events:auto}
+.fact-kicker{font-size:clamp(10px,1.8vmin,13px);font-weight:700;letter-spacing:.3em;color:var(--faint);text-transform:uppercase;margin-bottom:clamp(8px,1.8vmin,14px)}
+.fact-main{font-size:clamp(26px,5.6vmin,42px);font-weight:700;line-height:1.16;letter-spacing:-.01em}
+.fact-sub{font-size:clamp(15px,2.7vmin,21px);color:var(--muted);margin-top:clamp(7px,1.4vmin,12px);line-height:1.4}
+.footer{display:flex;align-items:center;justify-content:space-between;gap:16px}
+.cta{background:var(--btn-active);color:var(--btn-active-text);font-size:clamp(16px,2.8vmin,21px);font-weight:700;padding:clamp(12px,2.2vmin,17px) clamp(26px,5vmin,42px);border-radius:999px;box-shadow:0 12px 30px rgba(0,0,0,.28)}
 .cta:active{transform:scale(.98)}
+.dots{display:flex;gap:clamp(6px,1.2vmin,9px);align-items:center}
+.dot{width:clamp(6px,1.1vmin,8px);height:clamp(6px,1.1vmin,8px);border-radius:50%;background:var(--faint);opacity:.45;transition:opacity .5s ease,transform .5s ease;padding:0}
+.dot.on{opacity:1;transform:scale(1.35)}
 .back{align-self:flex-start;font-size:clamp(14px,2.2vmin,17px);font-weight:600;color:var(--muted);padding:6px 4px;margin-bottom:clamp(6px,1.2vmin,10px)}
 .name-sm{font-size:clamp(22px,4.6vmin,32px);font-weight:700;line-height:1.1;margin-bottom:clamp(12px,2.6vmin,20px)}
 .choices{display:flex;flex-direction:column;gap:clamp(9px,1.8vmin,14px);width:100%}
@@ -47,34 +51,52 @@ ul.facts li::before{content:"";position:absolute;left:1px;top:.52em;width:5px;he
 .handle{font-weight:600;letter-spacing:.01em;font-size:clamp(16px,2.8vmin,22px);margin-top:clamp(10px,2vmin,16px)}
 .phone-number{text-decoration:none;font-weight:700;letter-spacing:.045em;white-space:nowrap;color:var(--text);font-size:clamp(23px,6.4vw,42px);padding:clamp(8px,1.6vmin,14px) 0}
 .hint{font-size:clamp(12px,2vmin,15px);color:var(--muted);margin-top:clamp(6px,1.2vmin,10px)}
+@media (prefers-reduced-motion: reduce){.fact{transition:none}body{animation:none}}
 </style>
 </head>
 <body>
 
 <button class="theme-toggle" aria-label="Theme">Light</button>
-<main class="card">
+<main class="stage">
 
   <section class="screen on" id="screen-bio">
     <div class="kicker">About</div>
     <div class="name">John Meyers <span class="jd">(JD)</span></div>
     <div class="loc">Potsdam, New York</div>
     <div class="rule"></div>
-    <ul class="facts">
-      <li>
-        <div class="fact-main">SUNY Canton <span class="thin">· Criminal Investigation · 2023</span></div>
-      </li>
-      <li>
-        <div class="fact-main">Clarkson University <span class="thin">· MBA · 2027</span></div>
-      </li>
-      <li>
-        <div class="fact-main">JD Meyers Productions <span class="thin">· Photography &amp; Videography</span></div>
-        <div class="fact-sub">Weddings · Senior photos · Drone</div>
-      </li>
-      <li>
-        <div class="fact-main">New York Army National Guard <span class="thin">· HR Specialist</span></div>
-      </li>
-    </ul>
-    <button class="cta" id="to-contact">More info</button>
+    <div class="fact-zone">
+      <div class="facts" id="facts">
+        <div class="fact on">
+          <div class="fact-kicker">Education</div>
+          <div class="fact-main">SUNY Canton</div>
+          <div class="fact-sub">Criminal Investigation · Class of 2023</div>
+        </div>
+        <div class="fact">
+          <div class="fact-kicker">Education</div>
+          <div class="fact-main">Clarkson University</div>
+          <div class="fact-sub">MBA · Class of 2027</div>
+        </div>
+        <div class="fact">
+          <div class="fact-kicker">Business</div>
+          <div class="fact-main">JD Meyers Productions</div>
+          <div class="fact-sub">Photography &amp; Videography</div>
+        </div>
+        <div class="fact">
+          <div class="fact-kicker">On the Camera</div>
+          <div class="fact-main">Weddings · Senior Photos · Drone</div>
+          <div class="fact-sub">JD Meyers Productions</div>
+        </div>
+        <div class="fact">
+          <div class="fact-kicker">Service</div>
+          <div class="fact-main">New York Army National Guard</div>
+          <div class="fact-sub">HR Specialist</div>
+        </div>
+      </div>
+    </div>
+    <div class="footer">
+      <button class="cta" id="to-contact">More info</button>
+      <div class="dots" id="dots"></div>
+    </div>
   </section>
 
   <section class="screen" id="screen-contact">
@@ -117,6 +139,31 @@ ul.facts li::before{content:"";position:absolute;left:1px;top:.52em;width:5px;he
 
   var bio=document.getElementById('screen-bio');
   var contact=document.getElementById('screen-contact');
+
+  var factEls=document.querySelectorAll('#facts .fact');
+  var dotsWrap=document.getElementById('dots');
+  var dots=[];
+  var cur=0, cycleTimer=null;
+  factEls.forEach(function(f,i){
+    var d=document.createElement('button');
+    d.className='dot'+(i===0?' on':'');
+    d.setAttribute('aria-label','Fact '+(i+1));
+    d.addEventListener('click',function(){setFact(i);restartCycle();});
+    dotsWrap.appendChild(d);
+    dots.push(d);
+  });
+  function setFact(i){
+    cur=i;
+    factEls.forEach(function(f,j){f.classList.toggle('on',j===i);});
+    dots.forEach(function(d,j){d.classList.toggle('on',j===i);});
+  }
+  function nextFact(){setFact((cur+1)%factEls.length);}
+  function restartCycle(){
+    if(cycleTimer){clearInterval(cycleTimer);}
+    cycleTimer=setInterval(function(){if(bio.classList.contains('on')){nextFact();}},4200);
+  }
+  restartCycle();
+
   var resetTimer=null;
   function clearReset(){if(resetTimer){clearTimeout(resetTimer);resetTimer=null;}}
   function armReset(){clearReset();resetTimer=setTimeout(function(){showScreen('bio');},30000);}
@@ -145,14 +192,16 @@ ul.facts li::before{content:"";position:absolute;left:1px;top:.52em;width:5px;he
     });
   });
   document.addEventListener('pointerdown',function(){if(contact.classList.contains('on')){armReset();}});
-  var card=document.querySelector('.card');
-  if(card){card.addEventListener('click',function(e){
+  var stage=document.querySelector('.stage');
+  if(stage){stage.addEventListener('click',function(e){
     if(!document.body.classList.contains('has-open')){return;}
     if(e.target.closest('.choice')||e.target.closest('.panel')||e.target.closest('.back')){return;}
     closeAll(null);
   });}
 
   var h=(window.location.hash||'').toLowerCase();
+  var fm=h.match(/^#f([1-9])$/);
+  if(fm){var idx=parseInt(fm[1],10)-1;if(idx<factEls.length){setFact(idx);}}
   if(h==='#contact'||h==='#venmo'||h==='#phone'||h==='#save'){
     showScreen('contact');
     if(h==='#venmo'){closeAll('panel-venmo');}
