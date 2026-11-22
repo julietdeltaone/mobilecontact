@@ -4,14 +4,15 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>John Meyers (JD)</title>
-<script>(function(){var t='dark';try{if(window.matchMedia&&window.matchMedia('(prefers-color-scheme: light)').matches){t='light';}}catch(e){}document.documentElement.setAttribute('data-theme',t);})();</script>
+<script>(function(){var t='dark';try{if(window.matchMedia&&window.matchMedia('(prefers-color-scheme: light)').matches){t='light';}}catch(e){}document.documentElement.setAttribute('data-theme',t);try{var h=window.localStorage.getItem('mc-hue');if(h!==null&&h!==''){document.documentElement.style.setProperty('--h',h);}}catch(e){}})();</script>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html,body{height:100%}
 body{font-family:-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;overflow:hidden}
 button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
-:root[data-theme="dark"]{--text:#f4f4f5;--muted:rgba(244,244,245,.64);--faint:rgba(244,244,245,.42);--glass-line:rgba(255,255,255,.16);--btn:rgba(255,255,255,.05);--btn-line:rgba(255,255,255,.14);--btn-active:#f4f4f5;--btn-active-text:#17171a;--toggle:rgba(255,255,255,.08);--toggle-line:rgba(255,255,255,.22);--accent:#f0564f;--cta:linear-gradient(135deg,#8f1d22 0%,#c0272d 55%,#e0342f 100%);--cta-text:#ffffff;--bg-base:linear-gradient(155deg,#060607 0%,#101013 48%,#0a0a0c 100%);--blob-a:rgba(190,30,40,.62);--blob-b:rgba(110,14,20,.55);--blob-c:rgba(90,90,100,.38);--blob-op:.85}
-:root[data-theme="light"]{--text:#17171a;--muted:rgba(23,23,26,.62);--faint:rgba(23,23,26,.40);--glass-line:rgba(23,23,26,.13);--btn:rgba(255,255,255,.5);--btn-line:rgba(23,23,26,.13);--btn-active:#17171a;--btn-active-text:#ffffff;--toggle:rgba(255,255,255,.65);--toggle-line:rgba(23,23,26,.16);--accent:#b91c1c;--cta:linear-gradient(135deg,#8f1d22 0%,#c0272d 55%,#e0342f 100%);--cta-text:#ffffff;--bg-base:linear-gradient(155deg,#f6f6f7 0%,#e9e9ec 52%,#f2f2f4 100%);--blob-a:rgba(220,60,60,.34);--blob-b:rgba(160,30,40,.26);--blob-c:rgba(120,120,135,.30);--blob-op:.8}
+:root{--h:358}
+:root[data-theme="dark"]{--text:#f4f4f5;--muted:rgba(244,244,245,.64);--faint:rgba(244,244,245,.42);--glass-line:rgba(255,255,255,.16);--btn:rgba(255,255,255,.05);--btn-line:rgba(255,255,255,.14);--btn-active:#f4f4f5;--btn-active-text:#17171a;--toggle:rgba(255,255,255,.08);--toggle-line:rgba(255,255,255,.22);--accent:hsl(var(--h),82%,63%);--cta:linear-gradient(135deg,hsl(var(--h),70%,27%) 0%,hsl(var(--h),72%,39%) 55%,hsl(var(--h),78%,47%) 100%);--cta-text:#ffffff;--bg-base:linear-gradient(155deg,#060607 0%,#101013 48%,#0a0a0c 100%);--blob-a:hsla(var(--h),78%,40%,.62);--blob-b:hsla(var(--h),84%,24%,.55);--blob-c:rgba(90,90,100,.38);--blob-op:.85}
+:root[data-theme="light"]{--text:#17171a;--muted:rgba(23,23,26,.62);--faint:rgba(23,23,26,.40);--glass-line:rgba(23,23,26,.13);--btn:rgba(255,255,255,.5);--btn-line:rgba(23,23,26,.13);--btn-active:#17171a;--btn-active-text:#ffffff;--toggle:rgba(255,255,255,.65);--toggle-line:rgba(23,23,26,.16);--accent:hsl(var(--h),76%,40%);--cta:linear-gradient(135deg,hsl(var(--h),70%,27%) 0%,hsl(var(--h),72%,39%) 55%,hsl(var(--h),78%,47%) 100%);--cta-text:#ffffff;--bg-base:linear-gradient(155deg,#f6f6f7 0%,#e9e9ec 52%,#f2f2f4 100%);--blob-a:hsla(var(--h),78%,55%,.34);--blob-b:hsla(var(--h),76%,38%,.26);--blob-c:rgba(120,120,135,.30);--blob-op:.8}
 body{background:var(--bg-base);background-color:#060607;color:var(--text);height:100dvh}
 :root[data-theme="light"] body{background-color:#f6f6f7}
 .bg{position:fixed;inset:0;overflow:hidden;z-index:0;pointer-events:none}
@@ -23,10 +24,11 @@ body{background:var(--bg-base);background-color:#060607;color:var(--text);height
 @keyframes blobB{from{transform:translate(0,0) scale(1.1)}to{transform:translate(-9vmax,-8vmax) scale(.94)}}
 @keyframes blobC{from{transform:translate(0,0) scale(.95)}to{transform:translate(-7vmax,6vmax) scale(1.22)}}
 .theme-toggle{position:fixed;top:2.2vmin;right:2.6vmin;z-index:60;font-size:clamp(13px,2vmin,18px);font-weight:600;letter-spacing:.02em;padding:clamp(8px,1.6vmin,14px) clamp(14px,2.6vmin,26px);border-radius:999px;background:var(--toggle);color:var(--text);border:1px solid var(--toggle-line);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
-.stage{position:relative;z-index:1;height:100dvh;width:100%;display:flex;flex-direction:column;padding:clamp(22px,5vmin,54px) clamp(22px,6vmin,64px)}
+.stage{position:relative;z-index:1;height:100dvh;width:100%;display:flex;flex-direction:column;padding:clamp(58px,11vmin,78px) clamp(22px,6vmin,64px) clamp(22px,5vmin,54px)}
 .screen{display:none;flex-direction:column;width:100%;flex:1;min-height:0;text-align:left}
-.screen.on{display:flex;animation:fadein .35s ease}
+.screen.on{display:flex;animation:fadeRise .6s cubic-bezier(.22,1,.36,1) both}
 @keyframes fadein{from{opacity:0}to{opacity:1}}
+@keyframes fadeRise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
 .kicker{font-size:clamp(10px,1.7vmin,12px);font-weight:700;letter-spacing:.32em;color:var(--accent);text-transform:uppercase}
 .name{font-size:clamp(32px,7.4vmin,54px);font-weight:700;letter-spacing:-.015em;line-height:1.08;margin-top:clamp(8px,1.6vmin,14px)}
 .name .jd{font-weight:400;color:var(--muted)}
@@ -34,8 +36,8 @@ body{background:var(--bg-base);background-color:#060607;color:var(--text);height
 .rule{height:1px;background:linear-gradient(90deg,var(--accent),var(--glass-line) 55%,transparent);margin-top:clamp(16px,3.2vmin,26px)}
 .fact-zone{flex:1;display:flex;flex-direction:column;justify-content:center;min-height:0}
 .facts{position:relative;min-height:clamp(170px,34vmin,250px)}
-.fact{position:absolute;left:0;right:0;top:50%;transform:translateY(-50%) translateX(10px);opacity:0;transition:opacity .9s ease,transform .9s ease;pointer-events:none}
-.fact.on{opacity:1;transform:translateY(-50%) translateX(0);pointer-events:auto}
+.fact{position:absolute;left:0;right:0;top:50%;transform:translateY(calc(-50% + 18px)) scale(.985);filter:blur(8px);-webkit-filter:blur(8px);opacity:0;transition:opacity .85s ease,transform .85s cubic-bezier(.22,1,.36,1),filter .85s ease,-webkit-filter .85s ease;pointer-events:none}
+.fact.on{opacity:1;transform:translateY(-50%) scale(1);filter:blur(0);-webkit-filter:blur(0);pointer-events:auto}
 .fact-kicker{font-size:clamp(10px,1.8vmin,13px);font-weight:700;letter-spacing:.3em;color:var(--faint);text-transform:uppercase;margin-bottom:clamp(8px,1.8vmin,14px)}
 .fact-main{font-size:clamp(26px,5.6vmin,42px);font-weight:700;line-height:1.16;letter-spacing:-.01em}
 .fact-sub{font-size:clamp(15px,2.7vmin,21px);color:var(--muted);margin-top:clamp(7px,1.4vmin,12px);line-height:1.4}
@@ -43,9 +45,9 @@ body{background:var(--bg-base);background-color:#060607;color:var(--text);height
 .year-label{font-size:clamp(10px,1.8vmin,13px);font-weight:700;letter-spacing:.3em;color:var(--faint);text-transform:uppercase}
 .year-num{font-size:clamp(38px,9vmin,60px);font-weight:800;line-height:1;letter-spacing:-.01em;color:var(--accent)}
 .footer{display:flex;align-items:center;justify-content:space-between;gap:16px}
-.cta{background:var(--cta);color:var(--cta-text);font-size:clamp(16px,2.8vmin,21px);font-weight:700;padding:clamp(12px,2.2vmin,17px) clamp(26px,5vmin,42px);border-radius:999px;box-shadow:0 12px 30px rgba(140,15,20,.35)}
+.cta{background:var(--cta);color:var(--cta-text);font-size:clamp(16px,2.8vmin,21px);font-weight:700;padding:clamp(12px,2.2vmin,17px) clamp(26px,5vmin,42px);border-radius:999px;box-shadow:0 12px 30px hsla(var(--h),72%,30%,.35)}
 .cta:active{transform:scale(.98)}
-.dots{display:flex;gap:clamp(6px,1.2vmin,9px);align-items:center}
+.dots{display:flex;gap:clamp(6px,1.2vmin,9px);align-items:center;flex-wrap:wrap;justify-content:flex-end;max-width:48vw}
 .dot{width:clamp(6px,1.1vmin,8px);height:clamp(6px,1.1vmin,8px);border-radius:50%;background:var(--faint);opacity:.45;transition:opacity .5s ease,transform .5s ease,background .5s ease;padding:0}
 .dot.on{opacity:1;transform:scale(1.35);background:var(--accent)}
 .back{align-self:flex-start;font-size:clamp(14px,2.2vmin,17px);font-weight:600;color:var(--muted);padding:6px 4px;margin-bottom:clamp(6px,1.2vmin,10px)}
@@ -54,20 +56,35 @@ body{background:var(--bg-base);background-color:#060607;color:var(--text);height
 .choice{display:block;width:100%;text-align:center;padding:clamp(13px,2.5vmin,20px) 10px;font-size:clamp(16px,2.9vmin,23px);font-weight:600;color:var(--text);background:var(--btn);border:1px solid var(--btn-line);border-radius:clamp(13px,2.2vmin,18px);transition:background .25s ease,color .25s ease;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
 .choice.active{background:var(--btn-active);color:var(--btn-active-text)}
 .panel{display:none;width:100%;min-height:0}
-.panel.open{display:block;animation:fadein .3s ease}
+.panel.open{display:block;animation:fadeRise .45s cubic-bezier(.22,1,.36,1) both}
 .panel-inner{display:flex;flex-direction:column;align-items:center;justify-content:center;padding-top:clamp(12px,2.4vmin,20px)}
 .qr-tile{background:#ffffff;border-radius:clamp(14px,2.4vmin,22px);padding:clamp(10px,2vmin,20px);line-height:0;box-shadow:0 10px 40px rgba(0,0,0,.35);width:min(270px,58vw,36dvh)}
 .qr-tile svg{width:100%;height:auto;display:block}
 .handle{font-weight:600;letter-spacing:.01em;font-size:clamp(16px,2.8vmin,22px);margin-top:clamp(10px,2vmin,16px)}
 .phone-number{text-decoration:none;font-weight:700;letter-spacing:.045em;white-space:nowrap;color:var(--text);font-size:clamp(23px,6.4vw,42px);padding:clamp(8px,1.6vmin,14px) 0}
 .hint{font-size:clamp(12px,2vmin,15px);color:var(--muted);margin-top:clamp(6px,1.2vmin,10px)}
-@media (prefers-reduced-motion: reduce){.fact{transition:none}.blob{animation:none}}
+@media (prefers-reduced-motion: reduce){.fact{transition:none;filter:none;-webkit-filter:none}.blob{animation:none}.screen.on,.panel.open{animation:none}}
+.hue-picker{position:fixed;top:2.2vmin;left:2.6vmin;z-index:60;display:flex;align-items:center;gap:clamp(6px,1.4vmin,10px);padding:clamp(7px,1.4vmin,11px) clamp(10px,2vmin,16px);border-radius:999px;background:var(--toggle);border:1px solid var(--toggle-line);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
+.swatch{width:clamp(17px,3vmin,22px);height:clamp(17px,3vmin,22px);border-radius:50%;background:var(--sw);padding:0;flex:none;border:2px solid transparent;box-shadow:inset 0 0 0 1px rgba(255,255,255,.25)}
+.swatch.on{border-color:var(--text)}
+.swatch.custom{position:relative;display:block;cursor:pointer;background:conic-gradient(#f0564f,#f5a623,#f8e71c,#7ed321,#4a90d9,#9b59d0,#f0564f)}
+.swatch.custom input{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:pointer;padding:0;border:none}
+.fact-head{display:flex;align-items:center;gap:clamp(12px,2.6vmin,20px)}
+.seal{width:clamp(46px,9.5vmin,66px);height:auto;flex:none}
+:root[data-theme="dark"] .seal-d{display:none}
+:root[data-theme="light"] .seal-w{display:none}
+.fact-since{display:flex;align-items:baseline;gap:clamp(8px,1.6vmin,12px);margin-top:clamp(9px,1.8vmin,14px)}
+.since-label{font-size:clamp(10px,1.8vmin,13px);font-weight:700;letter-spacing:.3em;color:var(--faint);text-transform:uppercase}
+.since-num{font-size:clamp(24px,5vmin,34px);font-weight:800;line-height:1;color:var(--accent)}
+.travel-year{font-size:clamp(26px,5.4vmin,38px);font-weight:800;line-height:1.1;color:var(--accent);margin-top:clamp(8px,1.6vmin,12px)}
+.fact.small .fact-main{font-size:clamp(21px,4.2vmin,30px)}
 </style>
 </head>
 <body>
 
 <div class="bg" aria-hidden="true"><div class="blob blob-a"></div><div class="blob blob-b"></div><div class="blob blob-c"></div></div>
 <button class="theme-toggle" aria-label="Theme">Light</button>
+<div class="hue-picker" role="group" aria-label="Background color"><button class="swatch" data-hue="217" style="--sw:hsl(217,80%,55%)" aria-label="Blue background"></button><button class="swatch" data-hue="268" style="--sw:hsl(268,70%,62%)" aria-label="Purple background"></button><button class="swatch" data-hue="330" style="--sw:hsl(330,80%,60%)" aria-label="Pink background"></button><button class="swatch" data-hue="358" style="--sw:hsl(358,78%,52%)" aria-label="Red background"></button><button class="swatch" data-hue="26" style="--sw:hsl(26,92%,55%)" aria-label="Orange background"></button><button class="swatch" data-hue="142" style="--sw:hsl(142,55%,45%)" aria-label="Green background"></button><label class="swatch custom" aria-label="Custom background color"><input type="color" id="hue-custom" value="#e0342f"></label></div>
 <main class="stage">
 
   <section class="screen on" id="screen-bio">
@@ -79,30 +96,89 @@ body{background:var(--bg-base);background-color:#060607;color:var(--text);height
       <div class="facts" id="facts">
         <div class="fact on">
           <div class="fact-kicker">Education</div>
-          <div class="fact-main">SUNY Canton</div>
+          <div class="fact-head"><img class="seal seal-w" src="assets/seal-canton-white.png" alt="SUNY Canton seal"><img class="seal seal-d" src="assets/seal-canton-dark.png" alt="" aria-hidden="true"><div class="fact-main">SUNY Canton</div></div>
           <div class="fact-sub">Criminal Investigation</div>
           <div class="fact-year"><span class="year-label">Class of</span><span class="year-num">2023</span></div>
         </div>
         <div class="fact">
           <div class="fact-kicker">Education</div>
-          <div class="fact-main">Clarkson University</div>
+          <div class="fact-head"><img class="seal seal-w" src="assets/seal-clarkson-white.png" alt="Clarkson University seal"><img class="seal seal-d" src="assets/seal-clarkson-dark.png" alt="" aria-hidden="true"><div class="fact-main">Clarkson University</div></div>
           <div class="fact-sub">MBA</div>
           <div class="fact-year"><span class="year-label">Class of</span><span class="year-num">2027</span></div>
         </div>
         <div class="fact">
           <div class="fact-kicker">Business</div>
           <div class="fact-main">JD Meyers Productions</div>
+          <div class="fact-since"><span class="since-label">Since</span><span class="since-num">2018</span></div>
           <div class="fact-sub">Photography &amp; Videography</div>
-        </div>
-        <div class="fact">
-          <div class="fact-kicker">On the Camera</div>
-          <div class="fact-main">Weddings · Senior Photos · Drone</div>
-          <div class="fact-sub">JD Meyers Productions</div>
+          <div class="fact-sub">Weddings · Senior Photos · Drone</div>
         </div>
         <div class="fact">
           <div class="fact-kicker">Service</div>
           <div class="fact-main">New York Army National Guard</div>
+          <div class="fact-since"><span class="since-label">Since</span><span class="since-num">2024</span></div>
           <div class="fact-sub">HR Specialist</div>
+        </div>
+        <div class="fact">
+          <div class="fact-kicker">Travel</div>
+          <div class="fact-main">Paris</div>
+          <div class="travel-year">2021</div>
+        </div>
+        <div class="fact">
+          <div class="fact-kicker">Travel</div>
+          <div class="fact-main">Amsterdam and Brussels</div>
+          <div class="travel-year">2021</div>
+        </div>
+        <div class="fact">
+          <div class="fact-kicker">Travel</div>
+          <div class="fact-main">Paris</div>
+          <div class="travel-year">2022</div>
+        </div>
+        <div class="fact">
+          <div class="fact-kicker">Travel</div>
+          <div class="fact-main">Mexico City</div>
+          <div class="travel-year">2022</div>
+        </div>
+        <div class="fact">
+          <div class="fact-kicker">Travel</div>
+          <div class="fact-main">Las Vegas</div>
+          <div class="travel-year">2026</div>
+        </div>
+        <div class="fact small">
+          <div class="fact-kicker">Travel</div>
+          <div class="fact-main">Sanibel, Florida</div>
+        </div>
+        <div class="fact small">
+          <div class="fact-kicker">Travel</div>
+          <div class="fact-main">Washington, DC</div>
+        </div>
+        <div class="fact small">
+          <div class="fact-kicker">Travel</div>
+          <div class="fact-main">Ottawa, Ontario</div>
+        </div>
+        <div class="fact small">
+          <div class="fact-kicker">Travel</div>
+          <div class="fact-main">Montreal, Canada</div>
+        </div>
+        <div class="fact small">
+          <div class="fact-kicker">Travel</div>
+          <div class="fact-main">San Francisco</div>
+        </div>
+        <div class="fact small">
+          <div class="fact-kicker">Travel</div>
+          <div class="fact-main">Madrid, Spain</div>
+        </div>
+        <div class="fact small">
+          <div class="fact-kicker">Travel</div>
+          <div class="fact-main">Aguascalientes, Mexico</div>
+        </div>
+        <div class="fact small">
+          <div class="fact-kicker">Travel</div>
+          <div class="fact-main">Guatemala</div>
+        </div>
+        <div class="fact small">
+          <div class="fact-kicker">Travel</div>
+          <div class="fact-main">Istanbul, Turkey</div>
         </div>
       </div>
     </div>
@@ -149,6 +225,28 @@ body{background:var(--bg-base);background-color:#060607;color:var(--text);height
   setTheme(root.getAttribute('data-theme')||'dark');
   var tt=document.querySelector('.theme-toggle');
   if(tt){tt.addEventListener('click',function(){setTheme(root.getAttribute('data-theme')==='dark'?'light':'dark');});}
+
+  var swatches=document.querySelectorAll('.swatch[data-hue]');
+  function markHue(h){
+    var found=false;
+    swatches.forEach(function(b){var on=Math.abs(parseInt(b.getAttribute('data-hue'),10)-h)<3;b.classList.toggle('on',on);if(on){found=true;}});
+    var c=document.getElementById('hue-custom');
+    if(c&&c.parentElement){c.parentElement.classList.toggle('on',!found);}
+  }
+  function setHue(h,save){
+    root.style.setProperty('--h',h);
+    if(save){try{window.localStorage.setItem('mc-hue',String(h));}catch(e){}}
+    markHue(h);
+  }
+  swatches.forEach(function(b){b.addEventListener('click',function(){setHue(parseInt(b.getAttribute('data-hue'),10),true);});});
+  var hueInput=document.getElementById('hue-custom');
+  if(hueInput){hueInput.addEventListener('input',function(){
+    var v=hueInput.value;var r=parseInt(v.substr(1,2),16)/255,g=parseInt(v.substr(3,2),16)/255,bl=parseInt(v.substr(5,2),16)/255;
+    var mx=Math.max(r,g,bl),mn=Math.min(r,g,bl),h=0;
+    if(mx!==mn){var d=mx-mn;if(mx===r){h=((g-bl)/d)%6;}else if(mx===g){h=(bl-r)/d+2;}else{h=(r-g)/d+4;}h*=60;if(h<0){h+=360;}}
+    setHue(Math.round(h),true);
+  });}
+  (function(){var h=358;try{var sv=window.localStorage.getItem('mc-hue');if(sv!==null&&sv!==''){h=parseInt(sv,10)||358;}}catch(e){}markHue(h);})();
 
   var bio=document.getElementById('screen-bio');
   var contact=document.getElementById('screen-contact');
@@ -213,7 +311,7 @@ body{background:var(--bg-base);background-color:#060607;color:var(--text);height
   });}
 
   var h=(window.location.hash||'').toLowerCase();
-  var fm=h.match(/^#f([1-9])$/);
+  var fm=h.match(/^#f(\d{1,2})$/);
   if(fm){var idx=parseInt(fm[1],10)-1;if(idx<factEls.length){setFact(idx);}}
   if(h==='#contact'||h==='#venmo'||h==='#phone'||h==='#save'){
     showScreen('contact');
